@@ -9,9 +9,9 @@ export default function Weather({ data }) {
                 <h1 className='text-5xl'>{data.name.toUpperCase()}, {countries[data.sys.country].toUpperCase()}</h1>
             </div>
             <div className='flex items-center'>
-                <div className='text-9xl'>{(data.main.temp-273.15).toFixed(0)}°</div>
+                <div className='text-9xl'>{data.main.temp.toFixed(0)-273}°</div>
                 <div className='ml-10 pl-10 border-l-2 border-neutral-50 text-xl'>
-                    <p>FEELS LIKE: {(data.main.feels_like-273.15).toFixed(0)}°</p>
+                    <p>FEELS LIKE: {data.main.feels_like.toFixed(0)-273}°</p>
                     <p>WIND: {(data.wind.speed*3.6).toFixed(0)} KPH</p>
                     <p>HUMIDITY: {data.main.humidity}%</p>
                 </div>
