@@ -5,19 +5,26 @@ import { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import nightSky from '../assets/nightSky.jpg'
 import Weather from '../components/Weather'
+import ErrorMessage from '../components/ErrorMessage'
 
 export default function Home() {
   const [location, setLocation] = useState('');
   const [weatherData,setWeatherData] = useState({});
+  const [ok, setOk] = useState(0);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`;
   
   const getWeatherData = async (e) => {
     e.preventDefault();
-    const response = await axios.get(url);
-    setWeatherData(response.data);
-    console.log(response.data);
-    setLocation('')
+    try {
+      const response = await axios.get(url);
+      setOk(true);
+      setWeatherData(response.data);
+      setLocation('');
+    }
+    catch(err) {
+      setOk(false);
+    }
   }
 
   return (
@@ -37,7 +44,7 @@ export default function Home() {
             placeholder='Enter location' 
             onChange={(e) => setLocation(e.target.value)}
             className='bg-transparent border-none focus:outline-none text-lg placeholder:text-gray-400' />
-            <button onClick={getWeatherData}><BsSearch size={20} /></button>
+            <button type='submit'><BsSearch size={20} /></button>
           </form>
         </div>
         {weatherData.main && <Weather data={weatherData} />}
