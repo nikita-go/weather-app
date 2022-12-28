@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import nightSky from '../assets/nightSky.jpg'
-import Weather from '../components/Forecast'
+import Weather from '../components/Weather'
 
 export default function Home() {
   const [location, setLocation] = useState('');
